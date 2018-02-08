@@ -41,3 +41,12 @@ $d = $xrsa->privateDecrypt($base); // 使用私钥解密
 var_dump($d);
 
 ```
+
+### linux使用openssl生成rsa密钥对
+```
+openssl genrsa -out rsa_private_key.pem 1024   生成1024位的私钥
+
+openssl pkcs8 -topk8 -inform PEM -in rsa_private_key.pem -outform PEM -nocrypt -out private_key.pem  转换私钥位pkcs8模式 输出到private_key.pem
+
+openssl rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem   通过私钥生成公钥
+```
