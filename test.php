@@ -22,3 +22,18 @@ $base = $xrsa->publicEncrypt(json_encode($arr)); // 使用公钥加密
 echo $base . "\n";
 $d = $xrsa->privateDecrypt($base); // 使用私钥解密
 var_dump($d);
+
+
+// -------------------------------------
+$rsa = XRsa::createKeys(2048); // 创建密钥对
+$obj = new Xrsa($rsa['public_key'],$rsa['private_key']);
+$data = [
+    'id' => 1,
+    'name' => 'xiaoming',
+    'address' => 'china'
+];
+$str = $obj->privateEncrypt(json_encode($arr)); // 私钥加密
+$sign = $obj->sign($str); // 加签
+if($obj->verify($str,$sign) == 1){ // 验签
+    echo $obj->publicDecrypt($str) . PHP_EOL; // 公钥解密
+}
